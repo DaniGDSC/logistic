@@ -1,10 +1,10 @@
 import './index.css';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Header from './component/Header';
-import Sidebar from './component/Sidebar';
-import MainContent from './component/MainContent';
-import Footer from './component/Footer';
+import Header from './Header';
+import Sidebar from './Sidebar';
+import MainContent from './MainContent';
+import Footer from './Footer';
 import ProductPage from './pages/ProductPage';
 
 function App() {
