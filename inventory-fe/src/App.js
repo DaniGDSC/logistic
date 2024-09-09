@@ -33,13 +33,12 @@ function Sidebar() {
 
 function MainContent() {
   return (
-    <main className="p-4 flex-1">
-      <h2>Welcome to the Inventory Management System!</h2>
-      <p>Here you can manage your inventory effectively.</p>
-    </main>
+    <div className="p-4 bg-white shadow rounded-lg flex-1">
+          <h2 className="text-xl font-bold mb-4">Dashboard</h2>
+          <p>Here you can manage your inventory effectively.</p>
+        </div>
   );
 }
-
 function Footer() {
   return (
     <footer className="bg-gray-800 text-white p-4">
