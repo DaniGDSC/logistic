@@ -1,6 +1,6 @@
 import './index.css';
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import MainContent from './MainContent';
@@ -18,10 +18,10 @@ function App() {
         </div>
         <Footer />
       </div>
-      <Switch>
+      <Routes>
         <Route path="/products" component={ProductPage} />
         {/* Other routes */}
-      </Switch>
+      </Routes>
     </Router>
   );
 }
