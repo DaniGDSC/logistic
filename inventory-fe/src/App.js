@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import Dashboard from './Dashboard'
+import Dashboard from './Dashboard';
 import ProductPage from './pages/ProductPage';
 
 function App() {
@@ -14,12 +14,14 @@ function App() {
         <Header />
         <div className="flex flex-1 container mx-auto py-4">
           <Sidebar />
+          <Dashboard />
         </div>
+        
         <Footer />
       </div>
       <Routes>
         <Route path='/' element={<Dashboard />} />
-        <Route path="./products" component={ProductPage} />
+        <Route path="/products" element={<ProductPage />} />
         {/* Other routes */}
       </Routes>
     </Router>
