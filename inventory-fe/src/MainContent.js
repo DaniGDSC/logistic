@@ -1,3 +1,5 @@
+import React from 'react';
+import './index.css';
 function MainContent() {
     return (
       <div className="p-4 bg-white shadow rounded-lg flex-1">
@@ -8,4 +10,3 @@ function MainContent() {
   }
   
   export default MainContent;
-  
