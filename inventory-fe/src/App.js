@@ -16,11 +16,9 @@ function App() {
           <Sidebar />
           <Dashboard />
         </div>
-        
         <Footer />
       </div>
-      <Routes>
-        <Route path='/' element={<Dashboard />} />
+      <Routes> 
         <Route path="/products" element={<ProductPage />} />
         {/* Other routes */}
       </Routes>

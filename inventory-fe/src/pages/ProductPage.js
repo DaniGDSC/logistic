@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Button, Grid, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+import { Container, Typography, Button, Grid, Dialog, DialogTitle, DialogContent } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import ProductList from './ProductList'; // Assuming you have a component for listing products
 import ProductForm from './ProductForm'; // Assuming you have a form for adding/editing products
 import ProductDetails from './ProductDetails'; // Assuming you have a dialog for viewing product details
