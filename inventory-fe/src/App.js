@@ -1,6 +1,7 @@
-// path/to/filename.js
 import React from 'react';
-import './App.css';
+import './index.css';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import './Productpage.js';
 
 function Header() {
   return (
