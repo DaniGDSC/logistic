@@ -3,7 +3,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import MainContent from './MainContent';
 import Footer from './Footer';
 import Dashboard from './Dashboard'
 import ProductPage from './pages/ProductPage';
@@ -15,7 +14,6 @@ function App() {
         <Header />
         <div className="flex flex-1 container mx-auto py-4">
           <Sidebar />
-          <MainContent />
           <Dashboard />
         </div>
         <Footer />
