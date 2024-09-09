@@ -5,6 +5,7 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 import MainContent from './MainContent';
 import Footer from './Footer';
+import Dashboard from './Dashboard'
 import ProductPage from './pages/ProductPage';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <div className="flex flex-1 container mx-auto py-4">
           <Sidebar />
           <MainContent />
+          <Dashboard />
         </div>
         <Footer />
       </div>
