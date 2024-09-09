@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { PlusCircle, Edit, Trash2, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 // Mock data for demonstration
 const mockProducts = [
   { id: 1, name: 'Product A', sku: 'SKU001', price: 19.99, stock: 100 },
+  { id: 1, name: 'Product A', sku: 'SKU001', price: 9.99, stock: 100 },
   { id: 2, name: 'Product B', sku: 'SKU002', price: 29.99, stock: 75 },
   { id: 3, name: 'Product C', sku: 'SKU003', price: 39.99, stock: 50 },
 ];
