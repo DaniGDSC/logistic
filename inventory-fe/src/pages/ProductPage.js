@@ -1,80 +1,98 @@
-import React, { useState, useEffect } from 'react';
 import React, { useState } from 'react';
-import { PlusCircle, Edit, Trash2, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  IconButton,
+  Typography,
+  Container,
+  Grid
+} from '@mui/material';
+import {
+  Add as AddIcon,
+  Edit as EditIcon,
+  Delete as DeleteIcon,
+  Visibility as VisibilityIcon
+} from '@mui/icons-material';
 
 // Mock data for demonstration
 const mockProducts = [
   { id: 1, name: 'Product A', sku: 'SKU001', price: 19.99, stock: 100 },
-  { id: 1, name: 'Product A', sku: 'SKU001', price: 9.99, stock: 100 },
   { id: 2, name: 'Product B', sku: 'SKU002', price: 29.99, stock: 75 },
   { id: 3, name: 'Product C', sku: 'SKU003', price: 39.99, stock: 50 },
 ];
 
 const ProductList = ({ products, onEdit, onDelete, onViewDetails }) => (
-  <Card>
-    <CardHeader>
-      <CardTitle>Product List</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>SKU</TableHead>
-            <TableHead>Price</TableHead>
-            <TableHead>Stock</TableHead>
-            <TableHead>Actions</TableHead>
+  <TableContainer component={Paper}>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>Name</TableCell>
+          <TableCell>SKU</TableCell>
+          <TableCell>Price</TableCell>
+          <TableCell>Stock</TableCell>
+          <TableCell>Actions</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {products.map((product) => (
+          <TableRow key={product.id}>
+            <TableCell>{product.name}</TableCell>
+            <TableCell>{product.sku}</TableCell>
+            <TableCell>${product.price.toFixed(2)}</TableCell>
+            <TableCell>{product.stock}</TableCell>
+            <TableCell>
+              <IconButton onClick={() => onViewDetails(product)} size="small">
+                <VisibilityIcon />
+              </IconButton>
+              <IconButton onClick={() => onEdit(product)} size="small">
+                <EditIcon />
+              </IconButton>
+              <IconButton onClick={() => onDelete(product.id)} size="small">
+                <DeleteIcon />
+              </IconButton>
+            </TableCell>
           </TableRow>
-        </TableHeader>
-        <TableBody>
-          {products.map((product) => (
-            <TableRow key={product.id}>
-              <TableCell>{product.name}</TableCell>
-              <TableCell>{product.sku}</TableCell>
-              <TableCell>${product.price.toFixed(2)}</TableCell>
-              <TableCell>{product.stock}</TableCell>
-              <TableCell>
-                <div className="flex space-x-2">
-                  <Button variant="ghost" size="icon" onClick={() => onViewDetails(product)}>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" size="icon" onClick={() => onEdit(product)}>
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" size="icon" onClick={() => onDelete(product.id)}>
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </CardContent>
-  </Card>
+        ))}
+      </TableBody>
+    </Table>
+  </TableContainer>
 );
 
-const ProductDetails = ({ product, onClose }) => (
-  <Dialog open={!!product} onOpenChange={onClose}>
+const ProductDetails = ({ product, open, onClose }) => (
+  <Dialog open={open} onClose={onClose}>
+    <DialogTitle>Product Details</DialogTitle>
     <DialogContent>
-      <DialogHeader>
-        <DialogTitle>Product Details</DialogTitle>
-      </DialogHeader>
       {product && (
-        <div className="space-y-4">
-          <p><strong>Name:</strong> {product.name}</p>
-          <p><strong>SKU:</strong> {product.sku}</p>
-          <p><strong>Price:</strong> ${product.price.toFixed(2)}</p>
-          <p><strong>Stock:</strong> {product.stock}</p>
-        </div>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography><strong>Name:</strong> {product.name}</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography><strong>SKU:</strong> {product.sku}</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography><strong>Price:</strong> ${product.price.toFixed(2)}</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography><strong>Stock:</strong> {product.stock}</Typography>
+          </Grid>
+        </Grid>
       )}
     </DialogContent>
+    <DialogActions>
+      <Button onClick={onClose}>Close</Button>
+    </DialogActions>
   </Dialog>
 );
 
@@ -92,15 +110,59 @@ const ProductForm = ({ product, onSubmit, onCancel }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <Input name="name" value={formData.name} onChange={handleChange} placeholder="Product Name" required />
-      <Input name="sku" value={formData.sku} onChange={handleChange} placeholder="SKU" required />
-      <Input name="price" type="number" value={formData.price} onChange={handleChange} placeholder="Price" required />
-      <Input name="stock" type="number" value={formData.stock} onChange={handleChange} placeholder="Stock" required />
-      <div className="flex justify-end space-x-2">
-        <Button type="button" variant="outline" onClick={onCancel}>Cancel</Button>
-        <Button type="submit">Save</Button>
-      </div>
+    <form onSubmit={handleSubmit}>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            name="name"
+            label="Product Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            name="sku"
+            label="SKU"
+            value={formData.sku}
+            onChange={handleChange}
+            required
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            name="price"
+            label="Price"
+            type="number"
+            value={formData.price}
+            onChange={handleChange}
+            required
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            name="stock"
+            label="Stock"
+            type="number"
+            value={formData.stock}
+            onChange={handleChange}
+            required
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="contained" color="primary" type="submit">
+            Save
+          </Button>
+          <Button variant="outlined" onClick={onCancel} style={{ marginLeft: 8 }}>
+            Cancel
+          </Button>
+        </Grid>
+      </Grid>
     </form>
   );
 };
@@ -109,17 +171,18 @@ const ProductPage = () => {
   const [products, setProducts] = useState(mockProducts);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [showForm, setShowForm] = useState(false);
+  const [openForm, setOpenForm] = useState(false);
+  const [openDetails, setOpenDetails] = useState(false);
 
   const handleAddProduct = (newProduct) => {
     setProducts([...products, { ...newProduct, id: Date.now() }]);
-    setShowForm(false);
+    setOpenForm(false);
   };
 
   const handleEditProduct = (updatedProduct) => {
     setProducts(products.map((p) => (p.id === updatedProduct.id ? updatedProduct : p)));
     setIsEditing(false);
-    setSelectedProduct(null);
+    setOpenForm(false);
   };
 
   const handleDeleteProduct = (id) => {
@@ -127,45 +190,45 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 space-y-6">
-      <h1 className="text-2xl font-bold mb-4">Product Management</h1>
+    <Container maxWidth="lg">
+      <Typography variant="h4" gutterBottom>
+        Product Management
+      </Typography>
 
-      <Button onClick={() => setShowForm(true)}>
-        <PlusCircle className="mr-2 h-4 w-4" /> Add New Product
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<AddIcon />}
+        onClick={() => setOpenForm(true)}
+        style={{ marginBottom: 16 }}
+      >
+        Add New Product
       </Button>
 
       <ProductList
         products={products}
-        onEdit={(product) => { setSelectedProduct(product); setIsEditing(true); }}
+        onEdit={(product) => { setSelectedProduct(product); setIsEditing(true); setOpenForm(true); }}
         onDelete={handleDeleteProduct}
-        onViewDetails={setSelectedProduct}
+        onViewDetails={(product) => { setSelectedProduct(product); setOpenDetails(true); }}
       />
 
-      <ProductDetails product={selectedProduct} onClose={() => setSelectedProduct(null)} />
-
-      <Dialog open={showForm || isEditing} onOpenChange={(open) => {
-        if (!open) {
-          setShowForm(false);
-          setIsEditing(false);
-          setSelectedProduct(null);
-        }
-      }}>
+      <Dialog open={openForm} onClose={() => { setOpenForm(false); setIsEditing(false); setSelectedProduct(null); }}>
+        <DialogTitle>{isEditing ? 'Edit Product' : 'Add New Product'}</DialogTitle>
         <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{isEditing ? 'Edit Product' : 'Add New Product'}</DialogTitle>
-          </DialogHeader>
           <ProductForm
             product={isEditing ? selectedProduct : null}
             onSubmit={isEditing ? handleEditProduct : handleAddProduct}
-            onCancel={() => {
-              setShowForm(false);
-              setIsEditing(false);
-              setSelectedProduct(null);
-            }}
+            onCancel={() => { setOpenForm(false); setIsEditing(false); setSelectedProduct(null); }}
           />
         </DialogContent>
       </Dialog>
-    </div>
+
+      <ProductDetails
+        product={selectedProduct}
+        open={openDetails}
+        onClose={() => { setOpenDetails(false); setSelectedProduct(null); }}
+      />
+    </Container>
   );
 };
 
