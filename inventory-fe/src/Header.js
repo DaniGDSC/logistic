@@ -9,8 +9,7 @@ const Header = () => {
           <h1 className="text-2xl font-bold">Inventory Management</h1>
           <nav>
             <ul className="flex space-x-4">
-              <li><a href="#dashboard" className="hover:underline">Dashboard</a></li>
-            <li><Link to="/" className="hover:underline">Dashboard</Link></li> {/* Use the imported Link component */}
+                <li><Link to="/" className="hover:underline">Dashboard</Link></li> {/* Use the imported Link component */}
               <li><Link to="/items" className="hover:underline">Items</Link></li>
               <li><Link to="/orders" className="hover:underline">Orders</Link></li>
             </ul>
