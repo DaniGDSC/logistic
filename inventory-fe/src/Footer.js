@@ -1,3 +1,7 @@
+import React from 'react';
+import { Link } from 'react-router-dom'; // Import the Link component
+import './index.css';
+
 function Footer() {
     return (
       <footer className="bg-gray-800 text-white p-4">
