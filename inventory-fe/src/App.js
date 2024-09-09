@@ -20,7 +20,7 @@ function App() {
       </div>
       <Routes> 
         <Route path="/products" element={<ProductPage />} />
-        <Route path="/products" element={<ProductPage />} />
+        <Route path="/products" element={<InventoryPage />} />
       </Routes>
     </Router>
   );
