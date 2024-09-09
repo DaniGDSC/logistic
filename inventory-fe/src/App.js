@@ -1,7 +1,7 @@
+import './index.css'; // This import is unnecessary and should be removed unless used elsewhere in the project.
 import React from 'react';
-import './index.css';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import './Productpage.js';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import ProductPage from './components/ProductPage';
 
 function Header() {
   return (
@@ -11,8 +11,9 @@ function Header() {
         <nav>
           <ul className="flex space-x-4">
             <li><a href="#dashboard" className="hover:underline">Dashboard</a></li>
-            <li><a href="#items" className="hover:underline">Items</a></li>
-            <li><a href="#orders" className="hover:underline">Orders</a></li>
+            <li><Link to="/" className="hover:underline">Dashboard</Link></li>
+            <li><Link to="/items" className="hover:underline">Items</Link></li>
+            <li><Link to="/orders" className="hover:underline">Orders</Link></li>
           </ul>
         </nav>
       </div>
@@ -25,8 +26,9 @@ function Sidebar() {
     <aside className="bg-gray-200 p-4 w-1/4">
       <ul>
         <li><a href="#dashboard" className="block py-2 px-4 hover:bg-gray-300">Dashboard</a></li>
-        <li><a href="#items" className="block py-2 px-4 hover:bg-gray-300">Items</a></li>
-        <li><a href="#orders" className="block py-2 px-4 hover:bg-gray-300">Orders</a></li>
+        <li><Link to="/" className="block py-2 px-4 hover:bg-gray-300">Dashboard</Link></li>
+        <li><Link to="/items" className="block py-2 px-4 hover:bg-gray-300">Items</Link></li>
+        <li><Link to="/orders" className="block py-2 px-4 hover:bg-gray-300">Orders</Link></li>
       </ul>
     </aside>
   );
@@ -35,11 +37,12 @@ function Sidebar() {
 function MainContent() {
   return (
     <div className="p-4 bg-white shadow rounded-lg flex-1">
-          <h2 className="text-xl font-bold mb-4">Dashboard</h2>
-          <p>Here you can manage your inventory effectively.</p>
-        </div>
+      <h2 className="text-xl font-bold mb-4">Dashboard</h2>
+      <p>Here you can manage your inventory effectively.</p>
+    </div>
   );
 }
+
 function Footer() {
   return (
     <footer className="bg-gray-800 text-white p-4">
@@ -57,17 +60,4 @@ function Footer() {
   );
 }
 
-function App() {
-  return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <div className="flex flex-1 container mx-auto py-4">
-        <Sidebar />
-        <MainContent />
-      </div>
-      <Footer />
-    </div>
-  );
-}
-
-export default App;
+export default App; 
