@@ -1,82 +1,103 @@
-import React, { useState, useEffect } from 'react';
-import { PlusCircle, Edit, Trash2, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import React, { useState } from 'react';
+import {
+  Container,
+  Typography,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  IconButton,
+  Grid
+} from '@mui/material';
+import {
+  Add as AddIcon,
+  Edit as EditIcon,
+  Delete as DeleteIcon,
+  Visibility as VisibilityIcon
+} from '@mui/icons-material';
 
 // Mock data for demonstration
 const mockInventory = [
-  { id: 1, productId: 1, sku: 'SKU001', name: 'Product A', quantity: 100, location: 'Warehouse A' },
-  { id: 2, productId: 2, sku: 'SKU002', name: 'Product B', quantity: 75, location: 'Warehouse B' },
-  { id: 3, productId: 3, sku: 'SKU003', name: 'Product C', quantity: 50, location: 'Warehouse C' },
+  { id: 1, name: 'Product A', sku: 'SKU001', quantity: 100, location: 'Warehouse A' },
+  { id: 2, name: 'Product B', sku: 'SKU002', quantity: 75, location: 'Warehouse B' },
+  { id: 3, name: 'Product C', sku: 'SKU003', quantity: 50, location: 'Warehouse A' },
 ];
 
 const InventoryList = ({ inventory, onEdit, onDelete, onViewDetails }) => (
-  <Card>
-    <CardHeader>
-      <CardTitle>Inventory</CardTitle>
-    </CardHeader>
-    <CardContent>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Product</TableHead>
-            <TableHead>SKU</TableHead>
-            <TableHead>Quantity</TableHead>
-            <TableHead>Location</TableHead>
-            <TableHead>Actions</TableHead>
+  <TableContainer component={Paper} className="mt-4">
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>Name</TableCell>
+          <TableCell>SKU</TableCell>
+          <TableCell>Quantity</TableCell>
+          <TableCell>Location</TableCell>
+          <TableCell>Actions</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {inventory.map((item) => (
+          <TableRow key={item.id}>
+            <TableCell>{item.name}</TableCell>
+            <TableCell>{item.sku}</TableCell>
+            <TableCell>{item.quantity}</TableCell>
+            <TableCell>{item.location}</TableCell>
+            <TableCell>
+              <IconButton onClick={() => onViewDetails(item)} size="small" className="text-blue-500">
+                <VisibilityIcon />
+              </IconButton>
+              <IconButton onClick={() => onEdit(item)} size="small" className="text-yellow-500">
+                <EditIcon />
+              </IconButton>
+              <IconButton onClick={() => onDelete(item.id)} size="small" className="text-red-500">
+                <DeleteIcon />
+              </IconButton>
+            </TableCell>
           </TableRow>
-        </TableHeader>
-        <TableBody>
-          {inventory.map((item) => (
-            <TableRow key={item.id}>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>{item.sku}</TableCell>
-              <TableCell>{item.quantity}</TableCell>
-              <TableCell>{item.location}</TableCell>
-              <TableCell>
-                <div className="flex space-x-2">
-                  <Button variant="ghost" size="icon" onClick={() => onViewDetails(item)}>
-                    <ChevronRight className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" size="icon" onClick={() => onEdit(item)}>
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" size="icon" onClick={() => onDelete(item.id)}>
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </CardContent>
-  </Card>
+        ))}
+      </TableBody>
+    </Table>
+  </TableContainer>
 );
 
-const InventoryDetails = ({ item, onClose }) => (
-  <Dialog open={!!item} onOpenChange={onClose}>
+const InventoryDetails = ({ item, open, onClose }) => (
+  <Dialog open={open} onClose={onClose}>
+    <DialogTitle>Inventory Item Details</DialogTitle>
     <DialogContent>
-      <DialogHeader>
-        <DialogTitle>Inventory Details</DialogTitle>
-      </DialogHeader>
       {item && (
-        <div className="space-y-4">
-          <p><strong>Product:</strong> {item.name}</p>
-          <p><strong>SKU:</strong> {item.sku}</p>
-          <p><strong>Quantity:</strong> {item.quantity}</p>
-          <p><strong>Location:</strong> {item.location}</p>
-        </div>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography><strong>Name:</strong> {item.name}</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography><strong>SKU:</strong> {item.sku}</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography><strong>Quantity:</strong> {item.quantity}</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography><strong>Location:</strong> {item.location}</Typography>
+          </Grid>
+        </Grid>
       )}
     </DialogContent>
+    <DialogActions>
+      <Button onClick={onClose} color="primary">Close</Button>
+    </DialogActions>
   </Dialog>
 );
 
 const InventoryForm = ({ item, onSubmit, onCancel }) => {
-  const [formData, setFormData] = useState(item || { productId: '', sku: '', quantity: '', location: '' });
+  const [formData, setFormData] = useState(item || { name: '', sku: '', quantity: '', location: '' });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -90,13 +111,46 @@ const InventoryForm = ({ item, onSubmit, onCancel }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <Input name="productId" value={formData.productId} onChange={handleChange} placeholder="Product ID" required />
-      <Input name="sku" value={formData.sku} onChange={handleChange} placeholder="SKU" required />
-      <Input name="quantity" type="number" value={formData.quantity} onChange={handleChange} placeholder="Quantity" required />
-      <Input name="location" value={formData.location} onChange={handleChange} placeholder="Location" required />
+      <TextField
+        fullWidth
+        name="name"
+        label="Product Name"
+        value={formData.name}
+        onChange={handleChange}
+        required
+        className="mb-4"
+      />
+      <TextField
+        fullWidth
+        name="sku"
+        label="SKU"
+        value={formData.sku}
+        onChange={handleChange}
+        required
+        className="mb-4"
+      />
+      <TextField
+        fullWidth
+        name="quantity"
+        label="Quantity"
+        type="number"
+        value={formData.quantity}
+        onChange={handleChange}
+        required
+        className="mb-4"
+      />
+      <TextField
+        fullWidth
+        name="location"
+        label="Location"
+        value={formData.location}
+        onChange={handleChange}
+        required
+        className="mb-4"
+      />
       <div className="flex justify-end space-x-2">
-        <Button type="button" variant="outline" onClick={onCancel}>Cancel</Button>
-        <Button type="submit">Save</Button>
+        <Button variant="outlined" onClick={onCancel}>Cancel</Button>
+        <Button variant="contained" color="primary" type="submit">Save</Button>
       </div>
     </form>
   );
@@ -106,63 +160,64 @@ const InventoryPage = () => {
   const [inventory, setInventory] = useState(mockInventory);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [showForm, setShowForm] = useState(false);
+  const [openForm, setOpenForm] = useState(false);
+  const [openDetails, setOpenDetails] = useState(false);
 
   const handleAddItem = (newItem) => {
     setInventory([...inventory, { ...newItem, id: Date.now() }]);
-    setShowForm(false);
+    setOpenForm(false);
   };
 
   const handleEditItem = (updatedItem) => {
-    setInventory(inventory.map((i) => (i.id === updatedItem.id ? updatedItem : i)));
+    setInventory(inventory.map((item) => (item.id === updatedItem.id ? updatedItem : item)));
     setIsEditing(false);
-    setSelectedItem(null);
+    setOpenForm(false);
   };
 
   const handleDeleteItem = (id) => {
-    setInventory(inventory.filter((i) => i.id !== id));
+    setInventory(inventory.filter((item) => item.id !== id));
   };
 
   return (
-    <div className="container mx-auto p-4 space-y-6">
-      <h1 className="text-2xl font-bold mb-4">Inventory Management</h1>
+    <Container maxWidth="lg" className="py-8">
+      <Typography variant="h4" component="h1" gutterBottom className="text-3xl font-bold">
+        Inventory Management
+      </Typography>
 
-      <Button onClick={() => setShowForm(true)}>
-        <PlusCircle className="mr-2 h-4 w-4" /> Add New Inventory Item
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<AddIcon />}
+        onClick={() => setOpenForm(true)}
+        className="mb-4"
+      >
+        Add New Item
       </Button>
 
       <InventoryList
         inventory={inventory}
-        onEdit={(item) => { setSelectedItem(item); setIsEditing(true); }}
+        onEdit={(item) => { setSelectedItem(item); setIsEditing(true); setOpenForm(true); }}
         onDelete={handleDeleteItem}
-        onViewDetails={setSelectedItem}
+        onViewDetails={(item) => { setSelectedItem(item); setOpenDetails(true); }}
       />
 
-      <InventoryDetails item={selectedItem} onClose={() => setSelectedItem(null)} />
-
-      <Dialog open={showForm || isEditing} onOpenChange={(open) => {
-        if (!open) {
-          setShowForm(false);
-          setIsEditing(false);
-          setSelectedItem(null);
-        }
-      }}>
+      <Dialog open={openForm} onClose={() => { setOpenForm(false); setIsEditing(false); setSelectedItem(null); }}>
+        <DialogTitle>{isEditing ? 'Edit Inventory Item' : 'Add New Inventory Item'}</DialogTitle>
         <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{isEditing ? 'Edit Inventory Item' : 'Add New Inventory Item'}</DialogTitle>
-          </DialogHeader>
           <InventoryForm
             item={isEditing ? selectedItem : null}
             onSubmit={isEditing ? handleEditItem : handleAddItem}
-            onCancel={() => {
-              setShowForm(false);
-              setIsEditing(false);
-              setSelectedItem(null);
-            }}
+            onCancel={() => { setOpenForm(false); setIsEditing(false); setSelectedItem(null); }}
           />
         </DialogContent>
       </Dialog>
-    </div>
+
+      <InventoryDetails
+        item={selectedItem}
+        open={openDetails}
+        onClose={() => { setOpenDetails(false); setSelectedItem(null); }}
+      />
+    </Container>
   );
 };
 

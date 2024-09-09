@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Button, Grid, TextField, Paper, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
+import { Container, Typography, Button, Grid, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ProductList from './ProductList'; // Assuming you have a component for listing products
 import ProductForm from './ProductForm'; // Assuming you have a form for adding/editing products
@@ -66,7 +66,7 @@ const ProductPage = () => {
           <ProductForm
             product={isEditing ? selectedProduct : null}
             onSubmit={isEditing ? handleEditProduct : handleAddProduct}
-            onCancel={() => { setOpenForm(false); setIsEditing(     setSelectedProduct(null); }}
+            onCancel={() => { setOpenForm(false); setIsEditing(false);   setSelectedProduct(null); }}
             />
           </DialogContent>
         </Dialog>
