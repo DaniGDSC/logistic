@@ -14,12 +14,12 @@ function App() {
         <Header />
         <div className="flex flex-1 container mx-auto py-4">
           <Sidebar />
-          <Dashboard />
         </div>
         <Footer />
       </div>
       <Routes>
-        <Route path="./pages/ProductPage" component={ProductPage} />
+        <Route path='/' element={<Dashboard />} />
+        <Route path="./products" component={ProductPage} />
         {/* Other routes */}
       </Routes>
     </Router>

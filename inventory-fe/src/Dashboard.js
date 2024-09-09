@@ -27,6 +27,7 @@ import {
 } from '@mui/icons-material';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+
 // Mock data for the chart
 const salesData = [
   { name: 'Jan', sales: 4000 },
