@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField, Button } from '@mui/material';
-import DatePicker from 'react-tailwindcss-datepicker';
+import DatePicker from 'react-datepicker';
 
 class OrderPage extends React.Component {
   constructor() {

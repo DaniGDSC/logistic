@@ -1,13 +1,13 @@
-import './index.css';
+import './app.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './Header';
-import Sidebar from './Sidebar';
-import Footer from './Footer';
-import Dashboard from './Dashboard';
+import Header from './Component/Header';
+import Sidebar from './Component/Sidebar';
+import Footer from './Component/Footer';
+import Dashboard from './pages/Dashboard';
 import ProductPage from './pages/ProductPage';
 import InventoryPage from './pages/InventoryPage';
-import OrderPage from './pages/OrderPage'; // Import the new page
+
 
 function App() {
   return (
@@ -16,14 +16,13 @@ function App() {
         <Header />
         <div className="flex flex-1 container mx-auto py-4">
           <Sidebar />
-          <Dashboard />
         </div>
         <Footer />
       </div>
       <Routes> 
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/inventory" element={<InventoryPage />} />
-        <Route path="/orders" element={<OrderPage />} /> {/* Add the new route */}
       </Routes>
     </Router>
   );
