@@ -19,7 +19,7 @@ function App() {
         <Footer />
       </div>
       <Routes>
-        <Route path="/products" component={ProductPage} />
+        <Route path="./pages/ProductPage" component={ProductPage} />
         {/* Other routes */}
       </Routes>
     </Router>
