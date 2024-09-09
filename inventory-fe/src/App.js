@@ -7,6 +7,8 @@ import Footer from './Footer';
 import Dashboard from './Dashboard';
 import ProductPage from './pages/ProductPage';
 import InventoryPage from './pages/InventoryPage';
+import OrderPage from './pages/OrderPage'; // Import the new page
+
 function App() {
   return (
     <Router>
@@ -21,6 +23,7 @@ function App() {
       <Routes> 
         <Route path="/products" element={<ProductPage />} />
         <Route path="/inventory" element={<InventoryPage />} />
+        <Route path="/orders" element={<OrderPage />} /> {/* Add the new route */}
       </Routes>
     </Router>
   );
