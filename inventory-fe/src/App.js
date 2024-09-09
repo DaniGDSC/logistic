@@ -6,7 +6,7 @@ import Sidebar from './Sidebar';
 import Footer from './Footer';
 import Dashboard from './Dashboard';
 import ProductPage from './pages/ProductPage';
-
+import InventoryPage from './pages/InventoryPage';
 function App() {
   return (
     <Router>
@@ -20,7 +20,7 @@ function App() {
       </div>
       <Routes> 
         <Route path="/products" element={<ProductPage />} />
-        {/* Other routes */}
+        <Route path="/products" element={<ProductPage />} />
       </Routes>
     </Router>
   );
