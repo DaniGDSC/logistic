@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import ProductPage from './pages/ProductPage';
+import ProductList from './pages/ProductList';
 import InventoryPage from './pages/InventoryPage';
 import OrderPage  from './pages/OrderPage';
 
@@ -12,6 +13,7 @@ function App() {
         <Route path="/products" element={<ProductPage />} />
         <Route path="/inventory" element={<InventoryPage />} />
         <Route path="/order" element={<OrderPage />} />
+        <Route path='/productionlist' element={<ProductList />} />
       </Routes>
     </Router>
   );
