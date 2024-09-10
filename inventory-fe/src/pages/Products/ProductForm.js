@@ -1,9 +1,9 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { Button, Typography } from '@mui/material';
-import Dropzone from 'material-ui-dropzone';
-import axios from 'axios'; // Assuming you're using this for backend communication. You might need to adjust it based on your API setup.
+import { Button, Typography } from '@material-ui/core';
+import Dropzone from 'material-ui-dropzone'; // Correct import statement for the main export
+import axios from 'axios';
 
 const ProductSchema = Yup.object().shape({
   name: Yup.string()
