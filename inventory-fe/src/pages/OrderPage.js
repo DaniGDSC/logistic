@@ -1,7 +1,6 @@
 import React from 'react';
-import { TextField, Button } from '@mui/material';
-import DatePicker from 'react-datepicker';
-
+import { TextField, Button } from '@mui/material'; // Assuming you are using Material-UI for TextField and Button components
+import DatePicker from 'react-tailwindcss-datepicker'; // Ensure this is correctly imported
 class OrderPage extends React.Component {
   constructor() {
     super();
@@ -36,10 +35,10 @@ class OrderPage extends React.Component {
   render() {
     return (
       <div className="p-4">
-        <h1 className="text-2xl font-bold mb-4">Order Management</h1>
+        <h1 className="text-2xl font-bold mb-2">Order Management</h1>
         
         <div className="mb-4">
-          <h2 className="text-lg font-medium mb-2">Add Purchase Order</h2>
+          <h2 className="text-lg font-medium mb-4">Add Purchase Order</h2>
           <TextField label="Supplier Name" variant="outlined" fullWidth />
           <TextField label="Order Details" multiline rows={4} fullWidth />
           <Button onClick={() => this.addPurchaseOrder({})}>Add Purchase Order</Button>
@@ -52,9 +51,19 @@ class OrderPage extends React.Component {
           <Button onClick={() => this.addSalesOrder({})}>Add Sales Order</Button>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-4" width='1440px'>
           <h2 className="text-lg font-medium mb-2">Select Order Date</h2>
-          <DatePicker value={this.state.orderDate} onChange={this.handleDateChange} />
+          <DatePicker 
+            value={this.state.orderDate} 
+            onChange={this.handleDateChange} 
+            config={{
+              todayButton: true, // Add a button to navigate to the current date
+              clearButton: true, // Add a button to clear the selected date
+              locale: 'en', // Set the locale (optional)
+              minDate: new Date('2020-01-01'), // Set a minimum selectable date
+              maxDate: new Date('2030-12-31'), // Set a maximum selectable date
+            }}
+          />
         </div>
 
         <Button onClick={() => this.processOrders()} variant="contained" color="primary">Process Orders</Button>
