@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Dashboard/Dashboard';
 import ProductPage from './pages/ProductPage';
-import ProductList from './pages/ProductList';
-import InventoryPage from './pages/InventoryPage';
+import ProductList from './pages/Product/ProductList';
+import InventoryPage from './pages/Inventory/InventoryPage';
 import OrderPage  from './pages/OrderPage';
 
 function App() {
